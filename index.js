@@ -1,6 +1,7 @@
 const express = require('express')
 const app = express()
 
+// Set up morgan library for logging requests and responses
 var morgan = require('morgan')
 
 app.use(morgan('tiny', {
@@ -17,7 +18,12 @@ app.use(morgan(
     skip: (req, res) => { return req.method !== 'POST' }
   }))
 
+// Set up json handling
 app.use(express.json())
+
+// Set up CORS middleware
+const cors = require('cors')
+app.use(cors())
 
 let persons = [
   {
@@ -116,7 +122,7 @@ const unknownEndpoint = (request, response) => {
 
 app.use(unknownEndpoint)
 
-const PORT = 3001
+const PORT = process.env.PORT || 3001
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`)
 })
