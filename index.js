@@ -1,6 +1,22 @@
 const express = require('express')
 const app = express()
 
+var morgan = require('morgan')
+
+app.use(morgan('tiny', {
+  skip: (req, res) => { return req.method === 'POST' }
+}))
+
+morgan.token('reqBody', (request, response) => {
+  return JSON.stringify(request.body)
+})
+
+app.use(morgan(
+  ':method :url :status :res[content-length] - :response-time ms :reqBody',
+  {
+    skip: (req, res) => { return req.method !== 'POST' }
+  }))
+
 app.use(express.json())
 
 let persons = [
@@ -59,8 +75,6 @@ const generateId = () => {
 }
 
 app.post('/api/persons', (request, response) => {
-  console.log(request.body)
-
   const maxId = persons.length > 0
     ? Math.max(...persons.map(p => p.id))
     : 0
@@ -88,6 +102,19 @@ app.post('/api/persons', (request, response) => {
 
   response.json(newPerson)
 })
+
+app.delete('/api/persons/:id', (request, response) => {
+  const id = Number(request.params.id)
+  persons = persons.filter(note => note.id !== id)
+
+  response.status(204).end()
+})
+
+const unknownEndpoint = (request, response) => {
+  response.status(404).send({ error: 'unknown endpoint' })
+}
+
+app.use(unknownEndpoint)
 
 const PORT = 3001
 app.listen(PORT, () => {
