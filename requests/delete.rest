@@ -1,1 +1,5 @@
-DELETE http://localhost:3001/api/persons/5
+### Success scenario (add a real ID)
+DELETE http://localhost:3001/api/persons/60747213a191b677ffcf09e2
+
+### Error: Malformed ID
+DELETE http://localhost:3001/api/persons/60747213a191b677ff

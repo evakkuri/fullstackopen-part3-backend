@@ -1,0 +1,8 @@
+### Success scenario
+GET http://localhost:3001/api/persons/60746c5cc0383a7517db8b94
+
+### Error: Nonexistent ID
+GET http://localhost:3001/api/persons/60746c5cc0383a7515db8b94
+
+### Error: Malformed ID
+GET http://localhost:3001/api/persons/60746c5cc0383a75
