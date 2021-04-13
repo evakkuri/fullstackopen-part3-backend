@@ -28,11 +28,11 @@ const Person = mongoose.model('Person', personSchema)
 
 if (!newName || !newNumber) {
   console.log(
-    "Either name or number not provided, fetching all existing persons..."
+    'Either name or number not provided, fetching all existing persons...'
   )
 
   Person.find({}).then(result => {
-    console.log("phonebook:")
+    console.log('phonebook:')
     result.forEach(person => {
       console.log(person.name, person.number)
     })
@@ -46,7 +46,7 @@ const newPerson = new Person({
 })
 
 
-newPerson.save().then(response => {
+newPerson.save().then(() => {
   console.log(`added ${newName} number ${newNumber} to phonebook`)
   mongoose.connection.close()
 })
