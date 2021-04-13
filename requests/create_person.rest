@@ -22,3 +22,12 @@ content-type: application/json
 {
   "number": "00000000"
 }
+
+### Error: Too short name and number
+POST http://localhost:3001/api/persons/
+content-type: application/json
+
+{
+  "name": "El",
+  "number": "0000000"
+}
