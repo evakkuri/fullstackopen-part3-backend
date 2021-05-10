@@ -6,3 +6,12 @@ content-type: application/json
   "name": "Arto Hellas",
   "number": "040-1234567"
 }
+
+### Fail: invalid id
+PUT http://localhost:3001/api/persons/60746458fea11a70d9b7165c
+content-type: application/json
+
+{
+  "name": "Arto Hellas",
+  "number": "040-1234567"
+}
